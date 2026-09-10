@@ -11,6 +11,14 @@
     </div>
   <% end %>
 
+
+  <div>
+    <%= form.label :image, style: "display: block" %>
+    <%= form.file_field :image, required: true %>
+    <div id="image-preview-container">
+    <img id="image-preview" src="#" alt="Prévia da imagem" style="display:none;"/>
+  </div>
+
   <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
