@@ -1,9 +1,8 @@
-<%= form_with(model: post) do |form| %>
+<%= form_with(model: post, local: true, html: { multipart: true }) do |form| %>
   <% if post.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
+    <div class="alert alert-danger">
+      <h5 class="mb-2"><%= pluralize(post.errors.count, "erro") %> impediram o salvamento:</h5>
+      <ul class="mb-0">
         <% post.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,25 +10,33 @@
     </div>
   <% end %>
 
+  <div class="d-flex justify-content-center">
+    <div class="w-100" style="max-width: 760px;">
+      <div class="mb-3">
+        <%= form.label :title, "Título *", class: "form-label fw-semibold" %>
+        <%= form.text_field :title, class: "form-control form-control-lg", placeholder: "Digite o título do seu pin..." %>
+      </div>
 
-  <div>
-    <%= form.label :image, style: "display: block" %>
-    <%= form.file_field :image, required: true %>
-    <div id="image-preview-container">
-    <img id="image-preview" src="#" alt="Prévia da imagem" style="display:none;"/>
-  </div>
+      <div class="mb-3">
+        <%= form.label :description, "Descrição *", class: "form-label fw-semibold" %>
+        <%= form.text_area :description, class: "form-control", rows: 5, placeholder: "Conte um pouco sobre o que você está compartilhando..." %>
+      </div>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
+      <div class="mb-3">
+        <%= form.label :image, "Imagem *", class: "form-label fw-semibold" %>
+        <div class="border border-2 border-dashed rounded-4 p-4 text-center bg-light" style="border-color: #d9d9d9;">
+          <div class="mb-3">
+            <i class="bi bi-image fs-1 text-secondary"></i>
+          </div>
+          <p class="mb-2 text-secondary">Arraste e solte uma imagem aqui ou clique para selecionar</p>
+          <%= form.file_field :image, class: "form-control", accept: "image/*" %>
+        </div>
+      </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.textarea :description %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+      <div class="d-flex gap-2 mt-4 justify-content-center justify-content-md-start">
+        <%= form.submit "Publicar", class: "btn btn-danger px-4" %>
+        <%= link_to "Cancelar", posts_path, class: "btn btn-light border" %>
+      </div>
+    </div>
   </div>
 <% end %>

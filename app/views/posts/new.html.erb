@@ -1,11 +1,16 @@
 <% content_for :title, "New post" %>
 
-<h1>New post</h1>
+<div class="container py-4">
+  <div class="d-flex justify-content-center">
+    <div class="w-100" style="max-width: 760px;">
+      <div class="mb-4">
+        <%= link_to "← Voltar", posts_path, class: "text-decoration-none text-body-secondary fw-semibold" %>
+      </div>
 
-<%= render "form", post: @post %>
+      <h2 class="mb-4 fw-bold">Criar novo post</h2>
+    </div>
+  </div>
 
-<br>
-
-<div>
-  <%= link_to "Back to posts", posts_path %>
+  <%= render "form", post: @post %>
 </div>
+

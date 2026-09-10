@@ -1,21 +1,34 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @post %>
+<div class="container py-5">
+  <div class="row g-4 align-items-start">
+    <div class="col-lg-7">
+      <% if @post.image.attached? %>
+        <%= image_tag @post.image, class: "img-fluid rounded-4 shadow-sm w-100", style: "height: 860px; object-fit: cover;" %>
+      <% else %>
+        <div class="d-flex align-items-center justify-content-center bg-light text-muted rounded-4 shadow-sm" style="height: 560px;">
+          Sem imagem
+        </div>
+      <% end %>
+    </div>
 
-<div class="container">
-  <div class="image-banner">
+    <div class="col-lg-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body p-4">
+          <%= link_to "<- Voltar", posts_path, class: "text-decoration-none text-body-secondary"%>
+          <h1 class="card-title mb-3"><%= @post.title %></h1>
+          <p class="card-text fs-5"><%= @post.description %></p>
 
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <%= link_to edit_post_path(@post), class: "btn fw-bold" do %>
+              <i class="bi bi-pencil-square"></i> Editar              
+            <% end %>
+            <%= button_to  @post, method: :delete, class: "btn fw-bold" do %>
+              <i class="bi bi-trash" style="color: #fd0000"></i> Excluir
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-</div>
-
-
-
-
-
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "<-Voltar", posts_path %>
-
-  <%= button_to "Destroy this post", @post, method: :delete %>
 </div>
