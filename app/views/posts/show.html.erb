@@ -15,20 +15,53 @@
     <div class="col-lg-4">
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body p-4">
-          <%= link_to "<- Voltar", posts_path, class: "text-decoration-none text-body-secondary"%>
+          <%= link_to "<- Voltar", posts_path, class: "text-decoration-none text-body-secondary" %>
           <h1 class="card-title mb-3"><%= @post.title %></h1>
           <p class="card-text fs-5"><%= @post.description %></p>
 
           <div class="mt-4 d-flex flex-wrap gap-2">
             <%= link_to edit_post_path(@post), class: "btn fw-bold" do %>
-              <i class="bi bi-pencil-square"></i> Editar              
+              <i class="bi bi-pencil-square"></i> Editar
             <% end %>
-            <%= button_to  @post, method: :delete, class: "btn fw-bold" do %>
+            <%= button_to @post, method: :delete, class: "btn fw-bold" do %>
               <i class="bi bi-trash" style="color: #fd0000"></i> Excluir
             <% end %>
           </div>
         </div>
       </div>
+
+      <div class="mt-5">
+        <h3>Comentários</h3>
+
+        <%= form_with model: [@post, Comment.new], local: true do |form| %>
+          <div class="mb-3">
+            <%= form.label :user, "Seu nome", class: "form-label" %>
+            <%= form.text_field :user, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :content, "Comentário", class: "form-label" %>
+            <%= form.text_area :content, class: "form-control", rows: 3 %>
+          </div>
+
+          <%= form.submit "Comentar", class: "btn btn-primary" %>
+        <% end %>
+
+        <div class="mt-4">
+          <% if @post.comments.any? %>
+            <% @post.comments.each do |comment| %>
+              <div class="border rounded p-3 mb-3">
+                <strong><%= comment.user %></strong>
+                <p class="mb-0"><%= comment.content %></p>
+              </div>
+            <% end %>
+          <% else %>
+            <p class="text-muted">Ainda não há comentários.</p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+
