@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_12_224235) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_12_225226) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -45,7 +45,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_12_224235) do
     t.integer "post_id", null: false
     t.datetime "updated_at", null: false
     t.string "user"
+    t.integer "user_id", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -53,6 +55,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_12_224235) do
     t.text "description"
     t.string "title"
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -70,4 +74,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_12_224235) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "posts", "users"
 end

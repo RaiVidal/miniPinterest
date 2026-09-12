@@ -35,11 +35,6 @@
 
         <%= form_with model: [@post, Comment.new], local: true do |form| %>
           <div class="mb-3">
-            <%= form.label :user, "Seu nome", class: "form-label" %>
-            <%= form.text_field :user, class: "form-control" %>
-          </div>
-
-          <div class="mb-3">
             <%= form.label :content, "Comentário", class: "form-label" %>
             <%= form.text_area :content, class: "form-control", rows: 3 %>
           </div>
@@ -52,7 +47,7 @@
             <% @post.comments.each do |comment| %>
               <div class="border rounded p-3 mb-3">
                 <div class="d-flex flex-row align-items-center justify-content-between">
-                  <strong><%= comment.user %></strong>
+                  <strong><%= comment.user.email %></strong>
                   <%= button_to [@post, comment], method: :delete, form: { data: { turbo_confirm: "Tem certeza?" } }, class: "btn fw-bold" do %>
                     <i class="bi bi-trash" style="color: #fd0000"></i> Excluir
                   <% end %>
