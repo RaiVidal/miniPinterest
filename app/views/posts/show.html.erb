@@ -51,8 +51,14 @@
           <% if @post.comments.any? %>
             <% @post.comments.each do |comment| %>
               <div class="border rounded p-3 mb-3">
-                <strong><%= comment.user %></strong>
+                <div class="d-flex flex-row align-items-center justify-content-between">
+                  <strong><%= comment.user %></strong>
+                  <%= button_to [@post, comment], method: :delete, form: { data: { turbo_confirm: "Tem certeza?" } }, class: "btn fw-bold" do %>
+                    <i class="bi bi-trash" style="color: #fd0000"></i> Excluir
+                  <% end %>
+                </div>
                 <p class="mb-0"><%= comment.content %></p>
+                
               </div>
             <% end %>
           <% else %>
