@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
     @comment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @post, notice: "Comentário excluído com sucesso.", status: :see_other }
+      format.html { redirect_to @post, alert: "Comentário excluído com sucesso.", status: :see_other }
       format.json { head :no_content }
     end
   end
