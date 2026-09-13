@@ -3,6 +3,7 @@
     <div class="col-12 col-md-6 col-lg-5">
       <div class="card shadow-sm border-0 rounded-4">
         <div class="card-body p-4 p-md-5">
+          <%= link_to "<- Voltar", :back, class: "text-decoration-none text-body-secondary" %>
           <div class="d-flex flex-column align-items-center pb-4">
               <i class="bi bi-person-fill fs-1"></i>
               <h2 class="fw-bold">Editar <%= resource_name.to_s.humanize %></h2>
@@ -48,8 +49,6 @@
             <p class="fw-bold">Não está feliz com nossos serviços? </p>
             <%= button_to "Apagar minha conta", registration_path(resource_name), data: { confirm: "Tem certeza disso?", turbo_confirm: "Tem certeza disso?" }, method: :delete, class: "btn btn-danger" %>
           </div>
-
-          <%= link_to "<- Voltar", :back, class: "text-decoration-none" %>
         </div>
       </div>
     </div>
