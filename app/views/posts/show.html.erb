@@ -35,45 +35,53 @@
       </div>
 
       <div class="mt-5">
-        <h3>Comentários</h3>
-
-        <% if user_signed_in? %>
-          <%= form_with model: [@post, Comment.new], local: true do |form| %>
-            <div class="mb-3">
-              <%= form.label :content, "Comentário", class: "form-label" %>
-              <%= form.text_area :content, class: "form-control", rows: 3 %>
-            </div>
-
-            <%= form.submit "Comentar", class: "btn btn-primary" %>
-          <% end %>
-        <% else %>
-          <div class="alert alert-light border">
-            <%= link_to "Entre", new_user_session_path, class: "fw-bold text-decoration-none" %> ou <%= link_to "cadastre-se", new_user_registration_path, class: "fw-bold text-decoration-none" %> para comentar.
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body p-4"> 
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-chat-fill fs-1 pb-2" ></i>
+            <span class="fw-bold h2">Comentários</span>
           </div>
-        <% end %>
+        
 
-        <div class="mt-4">
-          <% if @post.comments.any? %>
-            <% @post.comments.each do |comment| %>
-              <div class="border rounded p-3 mb-3">
-                <div class="d-flex flex-row align-items-center justify-content-between">
-                  <div>
-                    <i class="bi bi-person-fill"></i>
-                    <strong><%= comment.user.email %></strong>
-                  </div>
-                  <% if user_signed_in? && current_user == comment.user %>
-                    <%= button_to [@post, comment], method: :delete, form: { data: { turbo_confirm: "Tem certeza?" } }, class: "btn fw-bold" do %>
-                      <i class="bi bi-trash" style="color: #fd0000"></i> Excluir
-                    <% end %>
-                  <% end %>
-                </div>
-                <p class="mb-0"><%= comment.content %></p>
-                
+          <% if user_signed_in? %>
+            <%= form_with model: [@post, Comment.new], local: true do |form| %>
+              <div class="mb-3">
+                <%= form.label :content, "Comentário", class: "form-label" %>
+                <%= form.text_area :content, class: "form-control", rows: 3 %>
               </div>
+
+              <%= form.submit "Comentar", class: "btn btn-primary" %>
             <% end %>
           <% else %>
-            <p class="text-muted">Ainda não há comentários.</p>
+            <div class="alert alert-light border">
+              <%= link_to "Entre", new_user_session_path, class: "fw-bold text-decoration-none" %> ou <%= link_to "cadastre-se", new_user_registration_path, class: "fw-bold text-decoration-none" %> para comentar.
+            </div>
           <% end %>
+
+          <div class="mt-4">
+            <% if @post.comments.any? %>
+              <% @post.comments.each do |comment| %>
+                <div class="border rounded p-3 mb-3">
+                  <div class="d-flex flex-row align-items-center justify-content-between">
+                    <div>
+                      <i class="bi bi-person-fill"></i>
+                      <strong><%= comment.user.email %></strong>
+                    </div>
+                    <% if user_signed_in? && current_user == comment.user %>
+                      <%= button_to [@post, comment], method: :delete, form: { data: { turbo_confirm: "Tem certeza?" } }, class: "btn fw-bold" do %>
+                        <i class="bi bi-trash" style="color: #fd0000"></i> Excluir
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <p class="mb-0"><%= comment.content %></p>
+                  
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-muted">Ainda não há comentários.</p>
+            <% end %>
+          </div>
+        </div>
         </div>
       </div>
     </div>
