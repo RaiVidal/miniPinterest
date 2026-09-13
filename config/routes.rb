@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :posts do
+      collection do
+        get :user_posts
+      end
     resources :comments, only: [:create, :destroy]
   end
   devise_for :users

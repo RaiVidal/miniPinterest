@@ -8,6 +8,11 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def user_posts
+    @posts = current_user.posts
+    render :index
+  end
+
   # GET /posts/1 or /posts/1.json
   def show
   end
