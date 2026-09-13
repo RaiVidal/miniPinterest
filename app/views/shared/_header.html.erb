@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg border-bottom bg-white">
   <div class="container">
-
     <%= link_to root_path, class: "navbar-brand fw-bold" do %>
       <i class="bi bi-pinterest" style="color: #fd0000;"></i>
       MiniPinterest
@@ -19,16 +18,37 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <%= link_to root_path, class: 'nav-link fw-bold' do%>
-           <i class=""></i>Explorar
+          <%= link_to root_path, class: 'nav-link fw-bold' do %>
+            Explorar
           <% end %>
         </li>
+      </ul>
 
+      <ul class="navbar-nav ms-auto align-items-center">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to edit_user_registration_path, class: "nav-link" do %>
+               <i class="bi bi-person"></i> Perfil
+            <% end %>
+          </li>
+
+          <li class="nav-item">
+            <%= button_to  destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm ms-2" do %>
+               <i class="bi bi-box-arrow-right"></i> Sair
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Entrar", new_user_session_path, class: "nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Cadastrar", new_user_registration_path, class: "btn btn-primary btn-sm ms-2" %>
+          </li>
+        <% end %>
       </ul>
     </div>
-
   </div>
 </nav>

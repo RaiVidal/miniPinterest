@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, only: %i[ create destroy ]
   before_action :set_post
   before_action :set_comment, only: :destroy
+  before_action :authorize_comment_owner!, only: :destroy
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -34,5 +36,11 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
+  end
+
+  def authorize_comment_owner!
+    unless current_user == @comment.user
+      redirect_to @post, alert: "Você não pode excluir este comentário."
+    end
   end
 end
